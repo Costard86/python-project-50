@@ -1,4 +1,5 @@
 import argparse
+from gendiff.fuctions.generate_diff import generate_diff
 
 
 def main():
@@ -11,6 +12,11 @@ def main():
 
     if args.help:
         parser.print_help()
+
+    file_path1 = 'tests/fixtures/file1.json'
+    file_path2 = 'tests/fixtures/file2.json'
+    diff = generate_diff(file_path1, file_path2)
+    print(diff)
 
 
 if __name__ == '__main__':
