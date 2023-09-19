@@ -9,13 +9,7 @@ def main():
     parser.add_argument('-f', '--format', help='set format of output')
 
     args = parser.parse_args()
-
-    if args.help:
-        parser.print_help()
-
-    file_path1 = 'tests/fixtures/file1.json'
-    file_path2 = 'tests/fixtures/file2.json'
-    diff = generate_diff(file_path1, file_path2)
+    diff = generate_diff(args.first_file, args.second_file)
     print(diff)
 
 

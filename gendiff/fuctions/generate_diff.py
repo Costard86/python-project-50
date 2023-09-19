@@ -2,9 +2,9 @@ import json
 
 
 def generate_diff(file1, file2):
-    with open(file1, 'r') as input_file1, open(file2, 'r') as input_file2:
-        data1 = json.load(open(input_file1))
-        data2 = json.load(open(input_file2))
+#    with open(file1, 'r') as input_file1, open(file2, 'r') as input_file2:
+        data1 = json.loads(open(file1))
+        data2 = json.loads(open(file2))
 
         sorted_dict1 = dict(sorted(data1.items(), key=lambda x: x[0]))
         sorted_dict2 = dict(sorted(data2.items(), key=lambda x: x[0]))
