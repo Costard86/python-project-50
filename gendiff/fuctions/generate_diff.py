@@ -15,13 +15,13 @@ def generate_diff(file1, file2):
         value2 = data2.get(key)
 
         if key not in keys2:
-            lines.append(f"- {key}: {value1}\n")
+            lines.append(f" - {key}: {value1}\n")
         elif key not in keys1:
-            lines.append(f"+ {key}: {value2}\n")
+            lines.append(f" + {key}: {value2}\n")
         elif value1 != value2:
-            lines.append(f"- {key}: {value1}\n")
-            lines.append(f"+ {key}: {value2}\n")
+            lines.append(f" - {key}: {value1}\n")
+            lines.append(f" + {key}: {value2}\n")
         else:
-            lines.append(f"  {key}: {value1}\n")
+            lines.append(f"   {key}: {value1}\n")
     lines.append('}')
-    return " ".join(lines)
+    return "".join(lines)
