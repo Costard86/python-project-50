@@ -5,7 +5,7 @@ test:
 	poetry run pytest
 
 test-coverage:
-	poetry run pytest --cov=/home/pavel/python-project-50 --cov-report xml
+	poetry run pytest --cov=/home/pavel/python-project-50 --cov-report json
 
 lint:
 	poetry run flake8
