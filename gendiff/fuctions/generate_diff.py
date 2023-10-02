@@ -1,9 +1,10 @@
 import json
+import yaml
 
 
 def generate_diff(file1, file2):
-    data1 = json.loads(open(file1).read())
-    data2 = json.loads(open(file2).read())
+    data1 = data_load(file1)
+    data2 = data_load(file2)
 
     keys1 = set(data1.keys())
     keys2 = set(data2.keys())
@@ -35,3 +36,13 @@ def true_false_lower(data):
     if data is None:
         data = 'null'
     return data
+
+
+def data_load(file_path):
+    if str(file_path).endswith(('.json', '.yaml', '.yml')):
+        if str(file_path).endswith(('.yaml', '.yml')):
+            return yaml.safe_load(open(file_path).read())
+        else:
+            return json.loads(open(file_path).read())
+    else:
+        raise ValueError(f"Unsupported file format: {file_path}")
