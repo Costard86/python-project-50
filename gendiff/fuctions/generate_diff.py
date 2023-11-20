@@ -6,26 +6,33 @@ def generate_diff(file1, file2):
     data1 = data_load(file1)
     data2 = data_load(file2)
 
+    return get_diff(data1, data2)
+
+
+def get_diff(data1, data2, key=None):
     keys1 = set(data1.keys())
     keys2 = set(data2.keys())
     all_keys = sorted(keys1.union(keys2))
 
-    lines = ['{\n']
-    for key in all_keys:
-        value1 = true_false_lower(data1.get(key))
-        value2 = true_false_lower(data2.get(key))
+    result = []
 
-        if key not in keys2:
-            lines.append(f" - {key}: {value1}\n")
-        elif key not in keys1:
-            lines.append(f" + {key}: {value2}\n")
+    for subkey in all_keys:
+        value1 = true_false_lower(data1.get(subkey))
+        value2 = true_false_lower(data2.get(subkey))
+
+        if subkey in keys1 and subkey in keys2 and isinstance(value1, dict) and isinstance(value2, dict):
+            result.append({'type': 'dict', 'key': subkey, 'value': get_diff(value1, value2, key=subkey)})
+        elif subkey not in keys2:
+            result.append({'type': 'remove', 'key': subkey, 'value': value1})
+        elif subkey not in keys1:
+            result.append({'type': 'added', 'key': subkey, 'value': value2})
         elif value1 != value2:
-            lines.append(f" - {key}: {value1}\n")
-            lines.append(f" + {key}: {value2}\n")
+            result.append({'type': 'remove', 'key': subkey, 'value': value1})
+            result.append({'type': 'added', 'key': subkey, 'value': value2})
         else:
-            lines.append(f"   {key}: {value1}\n")
-    lines.append('}')
-    return "".join(lines)
+            result.append({'type': 'same', 'key': subkey, 'value': value1})
+
+    return result
 
 
 def true_false_lower(data):
