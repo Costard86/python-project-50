@@ -78,13 +78,13 @@ def test_format_stylish(tmp_path):
     }
       setting6: {
           doge: {
-            - wow: 
+            - wow:
             + wow: so much
-        }
+            }
           key: value
         + ops: vops
+        }
     }
-}
   group1: {
     - baz: bas
     + baz: bars
@@ -93,7 +93,7 @@ def test_format_stylish(tmp_path):
         key: value
     }
     + nest: str
-}
+    }
 - group2: {
     abc: 12345
     deep: {
@@ -111,5 +111,3 @@ def test_format_stylish(tmp_path):
 }'''
 
     assert format_stylish(diff) == expected_output
-
-

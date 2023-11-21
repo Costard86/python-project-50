@@ -25,7 +25,8 @@ def format_stylish(diff, depth=0):
         else:
             lines.append(f"{current_indent}{prefix} {key}: {value}")
 
-    return '{\n' + '\n'.join(lines) + '\n' + current_indent + '}'
+    return ('{\n' + '\n'.join(line.rstrip() for line in lines) + '\n'
+            + current_indent + '}')
 
 
 def stringify(value, depth=0):
@@ -40,4 +41,3 @@ def stringify(value, depth=0):
         lines.append(f'{deep_indent}{key}: {stringify(val, deep_indent_size)}')
     result = itertools.chain(["{"], lines, [current_indent + "}"])
     return '\n'.join(result)
-

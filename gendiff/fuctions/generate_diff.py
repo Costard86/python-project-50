@@ -20,8 +20,10 @@ def get_diff(data1, data2, key=None):
         value1 = true_false_lower(data1.get(subkey))
         value2 = true_false_lower(data2.get(subkey))
 
-        if subkey in keys1 and subkey in keys2 and isinstance(value1, dict) and isinstance(value2, dict):
-            result.append({'type': 'dict', 'key': subkey, 'value': get_diff(value1, value2, key=subkey)})
+        if (subkey in keys1 and subkey in keys2 and isinstance(value1, dict)
+                and isinstance(value2, dict)):
+            result.append({'type': 'dict', 'key': subkey,
+                           'value': get_diff(value1, value2, key=subkey)})
         elif subkey not in keys2:
             result.append({'type': 'remove', 'key': subkey, 'value': value1})
         elif subkey not in keys1:
