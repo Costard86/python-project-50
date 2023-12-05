@@ -6,4 +6,4 @@
 Step 5:
 [![asciicast](https://asciinema.org/a/UPkE3HbKKQKmF2q9kmRoB9xMz.svg)](https://asciinema.org/a/UPkE3HbKKQKmF2q9kmRoB9xMz)
 Step 6:
-[![asciicast](https://asciinema.org/a/Rk9SmaAYPR5FT2qGrV3ASPYm8.svg)](https://asciinema.org/a/Rk9SmaAYPR5FT2qGrV3ASPYm8)
+[![asciicast](https://asciinema.org/a/b7qp3CGD3n2dTzL4IFSSfq7nR.svg)](https://asciinema.org/a/b7qp3CGD3n2dTzL4IFSSfq7nR)
