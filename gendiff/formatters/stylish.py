@@ -1,43 +1,58 @@
-import itertools
+from gendiff.fuctions.generate_diff import get_value
 
 
 def format_stylish(diff, depth=0):
-    lines = []
-    current_indent = ' ' * depth
-    for item in diff:
-        key = item['key']
-        value = item['value']
-        item_type = item['type']
 
-        if item_type == 'added':
-            prefix = '+'
-        elif item_type == 'remove':
-            prefix = '-'
-        else:
-            prefix = ' '
+    node_type = diff['type']
+    children = diff.get("children")
 
-        if isinstance(value, list):
-            formatted_value = format_stylish(value, depth + 4)
-            lines.append(f"{current_indent}{prefix} {key}: {formatted_value}")
-        elif isinstance(value, dict):
-            formatted_value = stringify(value, depth)
-            lines.append(f"{current_indent}{prefix} {key}: {formatted_value}")
-        else:
-            lines.append(f"{current_indent}{prefix} {key}: {value}")
+    if node_type == "root":
+        lines = map(lambda node: format_stylish(node, depth + 1), children)
+        lines = "\n".join(lines).rstrip()
+        return f"{{\n{lines}\n}}"
 
-    return ('{\n' + '\n'.join(line.rstrip() for line in lines) + '\n'
-            + current_indent + '}')
+    key = diff['key']
+    values = get_value(diff)
+
+    if node_type == "dict":
+        line = ident_deep(depth, " ") + f"{key}: "
+
+        ends = map(lambda node: format_stylish(node, depth + 1), children)
+        ends = "\n".join(ends)
+
+        line += f"{{\n{ends}\n" + ident_deep(depth, ' ') + "}"
+        return line.rstrip()
+
+    elif node_type == "same":
+        indent = ident_deep(depth, " ")
+        return indent + f"{key}: {stringify(values, depth + 1)}"
+
+    elif node_type == "added":
+        indent_plus = ident_deep(depth, "+")
+        return indent_plus + (f"{key}:{' ' if values else ''}"
+                              f"{stringify(values, depth + 1)}")
+
+    elif node_type == "remove":
+        indent_minus = ident_deep(depth, "-")
+        return indent_minus + (f"{key}:{' ' if values else ''}"
+                               f"{stringify(values, depth + 1)}")
+
+    else:
+        raise ValueError("Unknown node type")
 
 
-def stringify(value, depth=0):
-    if not isinstance(value, dict):
-        return str(value)
+def stringify(value, depth):
+    if isinstance(value, dict):
+        lines = []
+        for key, val in value.items():
+            line = f'{ident_deep(depth, " ")}{key}: {stringify(val, depth + 1)}'
+            lines.append(line)
 
-    deep_indent_size = depth + 4
-    deep_indent = ' ' * deep_indent_size
-    current_indent = ' ' * depth
-    lines = []
-    for key, val in value.items():
-        lines.append(f'{deep_indent}{key}: {stringify(val, deep_indent_size)}')
-    result = itertools.chain(["{"], lines, [current_indent + "}"])
-    return '\n'.join(result)
+        result = "\n".join(lines)
+        return f"{{\n{result}\n{ident_deep(depth - 1, ' ')}}}"
+
+    return str(value)
+
+
+def ident_deep(depth, symbol, replacer=" "):
+    return f"{(depth * 4 - 2) * replacer}{symbol} "
