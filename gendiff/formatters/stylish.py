@@ -1,6 +1,3 @@
-from gendiff.fuctions.generate_diff import get_value
-
-
 def format_stylish(diff, depth=0):
 
     node_type = diff['type']
@@ -12,7 +9,7 @@ def format_stylish(diff, depth=0):
         return f"{{\n{lines}\n}}"
 
     key = diff['key']
-    values = get_value(diff)
+    values = diff.get("value", None)
 
     if node_type == "dict":
         line = ident_deep(depth, " ") + f"{key}: "
@@ -23,19 +20,26 @@ def format_stylish(diff, depth=0):
         line += f"{{\n{ends}\n" + ident_deep(depth, ' ') + "}"
         return line.rstrip()
 
+    elif node_type == "changed":
+        lines = []
+        for symbol, value in zip(("-", "+"), values):
+            indent = ident_deep(depth, symbol)
+            line = indent + (f"{key}:{' ' if value else ''}"
+                             f"{stringify(value, depth + 1)}")
+            lines.append(line)
+        return "\n".join(lines)
+
     elif node_type == "same":
         indent = ident_deep(depth, " ")
         return indent + f"{key}: {stringify(values, depth + 1)}"
 
     elif node_type == "added":
         indent_plus = ident_deep(depth, "+")
-        return indent_plus + (f"{key}:{' ' if values else ''}"
-                              f"{stringify(values, depth + 1)}")
+        return indent_plus + f"{key}: {stringify(values, depth + 1)}"
 
     elif node_type == "remove":
         indent_minus = ident_deep(depth, "-")
-        return indent_minus + (f"{key}:{' ' if values else ''}"
-                               f"{stringify(values, depth + 1)}")
+        return indent_minus + f"{key}: {stringify(values, depth + 1)}"
 
     else:
         raise ValueError("Unknown node type")

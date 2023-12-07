@@ -1,13 +1,14 @@
 import json
 import yaml
+from gendiff.scripts.formating import formatting
 
 
-def generate_diff(file1, file2):
+def generate_diff(file1, file2, display_format="stylish"):
     data1 = data_load(file1)
     data2 = data_load(file2)
 
-    diff = get_diff(data1, data2)
-    return {'type': 'root', 'children': diff}
+    diff = {'type': 'root', 'children': get_diff(data1, data2)}
+    return formatting(diff, display_format)
 
 
 def get_diff(data1, data2, key=None):
@@ -29,11 +30,11 @@ def get_diff(data1, data2, key=None):
             result.append({'type': 'remove', 'key': subkey, 'value': value1})
         elif subkey not in keys1:
             result.append({'type': 'added', 'key': subkey, 'value': value2})
-        elif value1 != value2:
-            result.append({'type': 'remove', 'key': subkey, 'value': value1})
-            result.append({'type': 'added', 'key': subkey, 'value': value2})
-        else:
+        elif value1 == value2:
             result.append({'type': 'same', 'key': subkey, "value": value1})
+        else:
+            result.append({"type": "changed", "key": subkey,
+                           "value": (value1, value2)})
 
     return result
 
