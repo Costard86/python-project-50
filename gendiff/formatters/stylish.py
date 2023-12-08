@@ -1,3 +1,7 @@
+from gendiff.fuctions.get_diff import get_value
+from gendiff.fuctions.get_diff import get_key
+
+
 def format_stylish(diff, depth=0):
 
     node_type = diff['type']
@@ -8,8 +12,8 @@ def format_stylish(diff, depth=0):
         lines = "\n".join(lines).rstrip()
         return f"{{\n{lines}\n}}"
 
-    key = diff['key']
-    values = diff.get("value", None)
+    key = get_key(diff)
+    values = get_value(diff)
 
     if node_type == "dict":
         line = ident_deep(depth, " ") + f"{key}: "
