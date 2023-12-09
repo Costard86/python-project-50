@@ -1,6 +1,6 @@
 from pathlib import Path
-from gendiff.fuctions.generate_diff import generate_diff
-from gendiff.fuctions.generate_diff import data_load
+from gendiff.scripts.generate_diff import generate_diff
+from gendiff.scripts.generate_diff import data_load
 
 
 def get_path(file_name):
