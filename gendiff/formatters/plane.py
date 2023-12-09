@@ -1,6 +1,5 @@
 def format_plane(diff, path=""):
-
-    result = ""
+    result_lines = []
 
     for item in diff['children']:
         item_type = item['type']
@@ -8,20 +7,20 @@ def format_plane(diff, path=""):
         item_path = f"{path}.{key}" if path else key
 
         if item_type == 'dict':
-            result += format_plane(item, path=item_path)
+            result_lines.extend(format_plane(item, path=item_path).splitlines())
         else:
             if item_type == 'added':
-                result += (f"Property '{item_path}' was added with "
-                           f"value: {format_value(item['value'])}\n")
+                result_lines.append(f"Property '{item_path}' was added with "
+                                    f"value: {format_value(item['value'])}")
             elif item_type == 'remove':
-                result += f"Property '{item_path}' was removed\n"
+                result_lines.append(f"Property '{item_path}' was removed")
             elif item_type == 'changed':
                 old_value, new_value = item['value']
-                result += (f"Property '{item_path}' was updated. "
-                           f"From {format_value(old_value)} to "
-                           f"{format_value(new_value)}\n")
+                result_lines.append(
+                    f"Property '{item_path}' was updated. From "
+                    f"{format_value(old_value)} to {format_value(new_value)}")
 
-    return result
+    return '\n'.join(result_lines)
 
 
 def format_value(value):
