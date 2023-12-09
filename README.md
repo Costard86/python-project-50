@@ -7,3 +7,5 @@ Step 5:
 [![asciicast](https://asciinema.org/a/UPkE3HbKKQKmF2q9kmRoB9xMz.svg)](https://asciinema.org/a/UPkE3HbKKQKmF2q9kmRoB9xMz)
 Step 6:
 [![asciicast](https://asciinema.org/a/b7qp3CGD3n2dTzL4IFSSfq7nR.svg)](https://asciinema.org/a/b7qp3CGD3n2dTzL4IFSSfq7nR)
+Step 7:
+[![asciicast](https://asciinema.org/a/22IMkPDe5t5mkB4kmBfVcbtvs.svg)](https://asciinema.org/a/22IMkPDe5t5mkB4kmBfVcbtvs)
