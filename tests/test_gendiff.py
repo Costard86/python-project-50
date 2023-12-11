@@ -6,7 +6,7 @@ from gendiff.scripts.generate_diff import data_load
 def get_path(file_name):
     p = Path(__file__)
     tests = p.absolute().parent
-    return tests/'fixtures'/file_name
+    return tests / 'fixtures' / file_name
 
 
 def test_merge(tmp_path):
