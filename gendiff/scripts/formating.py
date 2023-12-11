@@ -1,11 +1,11 @@
 from gendiff.formatters.stylish import format_stylish
-from gendiff.formatters.plane import format_plane
+from gendiff.formatters.plain import format_plain
 from gendiff.formatters.json import format_json
 
 
 FORMATES = {
     'stylish': format_stylish,
-    'plane': format_plane,
+    'plain': format_plain,
     'json': format_json
 }
 

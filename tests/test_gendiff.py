@@ -75,7 +75,7 @@ def test_format_plane(tmp_path):
     file_path = get_path('result_plane.txt')
     with open(file_path, 'r') as file:
         file_content = file.read()
-    diff = generate_diff(file1, file2, 'plane')
+    diff = generate_diff(file1, file2, 'plain')
     assert diff == file_content
 
 

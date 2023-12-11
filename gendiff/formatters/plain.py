@@ -1,4 +1,4 @@
-def format_plane(diff, path=""):
+def format_plain(diff, path=""):
     result_lines = []
 
     for item in diff['children']:
@@ -7,7 +7,7 @@ def format_plane(diff, path=""):
         item_path = f"{path}.{key}" if path else key
 
         if item_type == 'dict':
-            result_lines.extend(format_plane(item, path=item_path).splitlines())
+            result_lines.extend(format_plain(item, path=item_path).splitlines())
         else:
             if item_type == 'added':
                 result_lines.append(f"Property '{item_path}' was added with "
