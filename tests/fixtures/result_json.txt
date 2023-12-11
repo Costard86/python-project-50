@@ -52,7 +52,7 @@
                                     "type": "changed",
                                     "key": "wow",
                                     "value": [
-                                        "",
+                                        "too much",
                                         "so much"
                                     ]
                                 }

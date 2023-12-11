@@ -28,8 +28,7 @@ def format_stylish(diff, depth=0):
         lines = []
         for symbol, value in zip(("-", "+"), values):
             indent = ident_deep(depth, symbol)
-            line = indent + (f"{key}:{' ' if value or value == 0 else ''}"
-                             f"{stringify(value, depth + 1)}")
+            line = indent + f"{key}: {stringify(value, depth + 1)}"
             lines.append(line)
         return "\n".join(lines)
 
