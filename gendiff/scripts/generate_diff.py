@@ -1,7 +1,7 @@
 import json
 import yaml
 from gendiff.scripts.formating import formatting
-from gendiff.fuctions.get_diff import get_diff
+from gendiff.get_diff import get_diff
 
 
 def generate_diff(file1, file2, display_format="stylish"):

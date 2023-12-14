@@ -6,8 +6,8 @@ def get_diff(data1, data2, key=None):
     result = []
 
     for subkey in all_keys:
-        value1 = true_false_lower(data1.get(subkey))
-        value2 = true_false_lower(data2.get(subkey))
+        value1 = data1.get(subkey)
+        value2 = data2.get(subkey)
 
         if (subkey in keys1 and subkey in keys2 and isinstance(value1, dict)
                 and isinstance(value2, dict)):
@@ -26,19 +26,11 @@ def get_diff(data1, data2, key=None):
     return result
 
 
-def true_false_lower(data):
+def to_string(data):
     if data is True:
-        data = 'true'
+        data = "true"
     if data is False:
-        data = 'false'
+        data = "false"
     if data is None:
-        data = 'null'
+        data = "null"
     return data
-
-
-def get_value(obj):
-    return obj.get("value", None)
-
-
-def get_key(obj):
-    return obj['key']

@@ -1,5 +1,4 @@
-from gendiff.fuctions.get_diff import get_value
-from gendiff.fuctions.get_diff import get_key
+from gendiff.get_diff import to_string
 
 
 def format_stylish(diff, depth=0):
@@ -12,8 +11,8 @@ def format_stylish(diff, depth=0):
         lines = "\n".join(lines).rstrip()
         return f"{{\n{lines}\n}}"
 
-    key = get_key(diff)
-    values = get_value(diff)
+    key = diff['key']
+    values = diff.get("value", None)
 
     if node_type == "dict":
         line = ident_deep(depth, " ") + f"{key}: "
@@ -58,7 +57,7 @@ def stringify(value, depth):
         result = "\n".join(lines)
         return f"{{\n{result}\n{ident_deep(depth - 1, ' ')}}}"
 
-    return str(value)
+    return str(to_string(value))
 
 
 def ident_deep(depth, symbol, replacer=" "):

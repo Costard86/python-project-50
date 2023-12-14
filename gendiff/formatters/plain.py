@@ -1,3 +1,6 @@
+from gendiff.get_diff import to_string
+
+
 def format_plain(diff, path=""):
     result_lines = []
 
@@ -26,8 +29,8 @@ def format_plain(diff, path=""):
 def format_value(value):
     if isinstance(value, dict):
         return "[complex value]"
-    elif isinstance(value, str) and value in ('true', 'false', 'null'):
-        return value
+    elif value in (False, True, None):
+        return to_string(value)
     elif isinstance(value, str):
         return f"'{value}'"
     return value

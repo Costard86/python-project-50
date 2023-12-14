@@ -8,7 +8,7 @@
                 {
                     "type": "added",
                     "key": "follow",
-                    "value": "false"
+                    "value": false
                 },
                 {
                     "type": "same",
@@ -24,8 +24,8 @@
                     "type": "changed",
                     "key": "setting3",
                     "value": [
-                        "true",
-                        "null"
+                        true,
+                        null
                     ]
                 },
                 {
